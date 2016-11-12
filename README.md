@@ -14,4 +14,4 @@ At this time, it only works with Github remotes. If you'd like to add support fo
 
 ## Settings
 
-The only "setting" of sorts is the mechanism to open URLs. If you have a global function defined named `OpenURL(url)`, the plugin will use that. If not, it will call the built-in `netrw#BrowseX` function, the same one that the |gx| mapping uses.
+The only "setting" of sorts is the mechanism to open URLs. If you have a global function defined named `OpenURL(url)`, the plugin will use that. If not, it will call the built-in `netrw#BrowseX` function, the same one that the `gx` mapping uses.
