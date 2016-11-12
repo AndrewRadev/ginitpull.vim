@@ -1,0 +1,57 @@
+*ginitpull.txt*	TODO
+
+==============================================================================
+CONTENTS                                        *ginitpull*   *ginitpull-contents*
+
+    Installation................................: |ginitpull-installation|
+    Usage.......................................: |ginitpull-usage|
+    Settings....................................: |ginitpull-settings|
+    Internals...................................: |ginitpull-internals|
+    Issues......................................: |ginitpull-issues|
+
+
+==============================================================================
+INSTALLATION                                            *ginitpull-installation*
+
+There are several ways to install the plugin. The recommended one is by using
+Tim Pope's pathogen (http://www.vim.org/scripts/script.php?script_id=2332). In
+that case, you can clone the plugin's git repository like so:
+>
+    git clone https://github.com/AndrewRadev/ginitpull.vim ~/.vim/bundle/ginitpull
+<
+If your vim configuration is under git version control, you could also set up
+the repository as a submodule, which would allow you to update more easily.
+The command is (provided you're in ~/.vim):
+>
+    git submodule add https://github.com/AndrewRadev/ginitpull.vim bundle/ginitpull
+<
+
+Another way is to simply copy all the essential directories inside the ~/.vim
+directory: autoload, doc, plugin.
+
+
+==============================================================================
+USAGE                                                          *ginitpull-usage*
+
+TODO
+
+
+==============================================================================
+SETTINGS                                                    *ginitpull-settings*
+
+TODO
+
+
+==============================================================================
+INTERNALS                                                  *ginitpull-internals*
+
+TODO
+
+==============================================================================
+ISSUES                                                        *ginitpull-issues*
+
+Any issues and suggestions are very welcome on the github bugtracker:
+https://github.com/AndrewRadev/ginitpull.vim/issues
+
+
+vim:tw=78:sw=4:ft=help:norl:
