@@ -75,11 +75,6 @@ function! s:CurrentGitBranch()
   return substitute(head_ref, 'ref: refs/heads/\(.*\)', '\1', '')
 endfunction
 
-" Trim a list of items
-function! lib#TrimList(ss)
-  return map(a:ss, 'lib#Trim(v:val)')
-endfunction
-
 " Trim each line in the given string
 function! s:TrimLines(s)
   let lines = split(a:s, "\n")
@@ -96,6 +91,7 @@ function! s:Trim(s)
   return s
 endfunction
 
+" Open the given url with an external program
 function! s:Open(url)
   if exists('*OpenURL')
     call OpenURL(a:url)
