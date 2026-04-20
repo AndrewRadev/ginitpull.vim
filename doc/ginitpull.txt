@@ -44,11 +44,9 @@ tab-completed.
 If called without any arguments, defaults to the "origin" remote and the
 current branch name, which is probably what you usually want.
 
-At this time, it only works with Github remotes. If you'd like to add support
-for Bitbucket or Gitlab PRs, I would appreciate a PR, since I don't have any
-repositories of my own there to test with. Even if you don't make a PR,
-because you don't have the Vimscript skills, please open an issue and explain
-how PRs work on whatever platform you need. I'll try to implement it.
+At this time, it only works with Github and Gitlab remotes. I plan to add
+codeberg support as well, but either way if you're looking for support for a
+particular repo, please open a PR or issue to discuss.
 
 
 ==============================================================================
