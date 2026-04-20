@@ -1,18 +1,18 @@
-function! ginitpull#Run(...)
+function! ginitpull#Run(...) abort
   let remote_name = get(a:000, 0, 'origin')
   let branch_name = get(a:000, 1, '')
 
-  try
-    if branch_name == ''
-      let branch_name = s:CurrentGitBranch()
-    endif
+  if branch_name == ''
+    let branch_name = s:CurrentGitBranch()
+  endif
 
-    let [_type, web_path] = s:WebPath(remote_name)
-  catch /./
-    echoerr v:exception
-  endtry
+  let [type, web_path] = s:WebPath(remote_name)
 
-  call s:Open('https://github.com/'.web_path.'/pull/new/'.branch_name)
+  if type == 'github'
+    call s:Open('https://github.com/'..web_path..'/pull/new/'..branch_name)
+  elseif type == 'gitlab.com'
+    call s:Open('https://gitlab.com/'..web_path..'/-/merge_requests/new?merge_request[source_branch]='..branch_name)
+  endif
 endfunction
 
 function! ginitpull#Complete(argument_lead, command_line, cursor_position)
@@ -43,13 +43,29 @@ endfunction
 
 function! s:WebPath(remote_name)
   for remote in split(system('git remote -v'), "\n")
-    if remote =~ '^'.a:remote_name
-      if remote =~ 'git@github.com'
-        let path = substitute(remote, '.*git@github.com:\(.*\)\.git.*', '\1', '')
+    let [remote_name, remote_url] = split(remote, '\t')
+
+    if remote_name =~ '^'.a:remote_name
+      if remote_url =~ '^git@github\.com'
+        let path = substitute(
+              \ remote_url,
+              \ '^git@github.com:\(.*\)\.git.*', '\1', '')
         return ['github', path]
-      elseif remote =~ 'https\?://github\.com'
-        let path = substitute(remote, '.*https\?://github\.com/\(.\{-}\)\%(\.git\)\=\%(\s\+.*\|$\)', '\1', '')
+      elseif remote_url =~ '^https://github\.com'
+        let path = substitute(
+              \ remote_url,
+              \ '^https://github\.com/\(.\{-}\)\%(\.git\)\=\%(\s\+.*\|$\)', '\1', '')
         return ['github', path]
+      elseif remote_url =~ '^git@gitlab\.com'
+        let path = substitute(
+              \ remote_url,
+              \ '^git@gitlab.com:\(.*\)\.git.*', '\1', '')
+        return ['gitlab.com', path]
+      elseif remote_url =~ '^https://gitlab\.com'
+        let path = substitute(
+              \ remote_url,
+              \ '^https\?://gitlab\.com/\(.\{-}\)\%(\.git\)\=', '\1', '')
+        return ['gitlab.com', path]
       endif
     endif
   endfor
