@@ -12,6 +12,8 @@ function! ginitpull#Run(...) abort
     call s:Open('https://github.com/'..web_path..'/pull/new/'..branch_name)
   elseif type == 'gitlab.com'
     call s:Open('https://gitlab.com/'..web_path..'/-/merge_requests/new?merge_request[source_branch]='..branch_name)
+  elseif type == 'codeberg'
+    call s:Open('https://codeberg.org/'..web_path..'/compare/main...'..branch_name)
   endif
 endfunction
 
@@ -45,6 +47,8 @@ function! s:WebPath(remote_name)
   for remote in split(system('git remote -v'), "\n")
     let [remote_name, remote_url] = split(remote, '\t')
 
+    let remote_url = substitute(remote_url, '\s\+(\(fetch\|push\))$', '', '')
+
     if remote_name =~ '^'.a:remote_name
       if remote_url =~ '^git@github\.com'
         let path = substitute(
@@ -66,6 +70,16 @@ function! s:WebPath(remote_name)
               \ remote_url,
               \ '^https\?://gitlab\.com/\(.\{-}\)\%(\.git\)\=', '\1', '')
         return ['gitlab.com', path]
+      elseif remote_url =~ '^ssh://git@codeberg.org/'
+        let path = substitute(
+              \ remote_url,
+              \ '^ssh://git@codeberg.org/\(.\{-}\)\%(\.git\)\=', '\1', '')
+        return ['codeberg', path]
+      elseif remote_url =~ '^https\?://codeberg\.org/'
+        let path = substitute(
+              \ remote_url,
+              \ '^https\?://codeberg\.org/\(.\{-}\)\%(\.git\)\=', '\1', '')
+        return ['codeberg', path]
       endif
     endif
   endfor
@@ -78,12 +92,12 @@ function! s:CurrentGitBranch()
   let head_file    = findfile('.git/HEAD', ';')
   let dot_git_file = findfile('.git', ';')
 
-  if filereadable(head_file)
-    let head_ref = readfile(head_file)[0]
-  elseif filereadable(dot_git_file)
+  if filereadable(dot_git_file)
     let module_file = readfile(dot_git_file)[0]
     let module_file = substitute(module_file, 'gitdir: \(.*\)', '\1/HEAD', '')
     let head_ref    = readfile(module_file)[0]
+  elseif filereadable(head_file)
+    let head_ref = readfile(head_file)[0]
   else
     throw 'This doesn''t look like a git repository, neither .git/HEAD nor .git were found.'
   endif

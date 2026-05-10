@@ -10,7 +10,7 @@ Calling it initiates a github pull request in the default browser, from the give
 
 If called without any arguments, defaults to the "origin" remote and the current branch name, which is probably what you usually want.
 
-At this time, it only works with Github and Gitlab remotes. I plan to add codeberg support as well, but either way if you're looking for support for a particular repo, please open a PR or issue to discuss.
+At this time, it works with Github, Gitlab.com, and Codeberg remotes. If you're looking for support for a self-hosted repos or some other centrally-hosted service, please open a PR or issue to discuss.
 
 ## Settings
 
