@@ -112,6 +112,6 @@ function! s:Open(url)
   if exists('*OpenURL')
     call OpenURL(a:url)
   else
-    call netrw#BrowseX(a:url, 0)
+    call netrw#BrowseX(a:url)
   endif
 endfunction
