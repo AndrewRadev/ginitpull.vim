@@ -18,4 +18,4 @@ The only "setting" of sorts is the mechanism to open URLs. If you have a global 
 
 ## Contributing
 
-Pull requests are welcome, as long as they did not involve LLM usage. Be sure to abide by the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) as well.
+Pull requests are welcome, as long as they **did not involve LLM usage**. Be sure to abide by the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) as well.
